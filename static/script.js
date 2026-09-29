@@ -120,16 +120,7 @@ async function verNota(id) {
             <div>🏷️ ${(nota.tags || []).map(t => '#' + escapeHtml(t)).join(' ')}</div>
         `;
 
-        let html = nota.contenido
-            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/\n/g, '<br>');
-
-        document.getElementById('verContenido').innerHTML = html;
+        document.getElementById('verContenido').innerHTML = marked.parse(nota.contenido);
         abrirModal('modalVerNota');
     } catch (error) {
         alert('Error cargando la nota: ' + error.message);
