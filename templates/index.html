@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javxdesign - Gestor de Notas</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo"><img src="/static/JavxLogoNewBlanco.svg" alt=""></div>
+                <div class="slogan neo-badge">] herramientas útiles [</div>
+            </div>
+            <button class="btn-crear" id="btnCrearNota">+ Nueva Nota</button>
+        </header>
+
+        <main class="main-frame">
+            <aside class="sidebar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar notas..." autocomplete="off">
+                    <label class="exact-search">
+                        <input type="checkbox" id="exactSearch"> Frase exacta
+                    </label>
+                </div>
+                
+                <div class="stats-box">
+                    <h3>📊 Estadísticas</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Notas totales:</span>
+                        <span class="stat-value" id="totalNotas">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tags únicas:</span>
+                        <span class="stat-value" id="totalTags">0</span>
+                    </div>
+                </div>
+
+                <div class="tags-cloud">
+                    <h3>🏷️ Tags populares</h3>
+                    <div id="tagsList" class="tags-container"></div>
+                </div>
+            </aside>
+
+            <div class="content">
+                <div id="notasGrid" class="notas-grid">
+                    <div class="loading">Cargando notas...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Crear/Editar Nota -->
+    <div id="modalNota" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Crear Nueva Nota</h2>
+                <button class="close-btn" onclick="cerrarModal('modalNota')">&times;</button>
+            </div>
+            <form id="formNota">
+                <input type="hidden" id="notaId">
+                <div class="form-group">
+                    <label>Identificador (sin espacios)</label>
+                    <input type="text" id="nombreNota" required placeholder="ej: mi_nota">
+                </div>
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="tituloNota" required placeholder="Título de la nota">
+                </div>
+                <div class="form-group">
+                    <label>Autor</label>
+                    <input type="text" id="autorNota" placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label>Tags (separadas por coma)</label>
+                    <input type="text" id="tagsNota" placeholder="python, tutorial, notas">
+                </div>
+                <div class="form-group">
+                    <label>Contenido (Markdown)</label>
+                    <textarea id="contenidoNota" rows="12" placeholder="# Título&#10;&#10;Escribe tu nota aquí..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="cerrarModal('modalNota')">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar Nota</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ver Nota -->
+    <div id="modalVerNota" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="verTitulo"></h2>
+                <button class="close-btn" onclick="cerrarModal('modalVerNota')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="verMeta" style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #4f5461;"></div>
+                <div id="verContenido" style="line-height: 1.8;"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-editar" id="btnEditarNota">✏️ Editar</button>
+                <button class="btn-eliminar" id="btnEliminarNota">🗑️ Eliminar</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a href="https://javxdesign.net">JavxDesign.net</a>
+        <p><span class="copyleft">&copy;</span> 2026</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
